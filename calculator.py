@@ -1,6 +1,6 @@
 """Calculator application"""
 import tkinter as tk
-from tkinter import RIGHT
+from tkinter import RIGHT, END, DISABLED
 
 
 root = tk.Tk()
@@ -17,8 +17,14 @@ button_font = ("Arial", 18)
 display_font = ("Arial", 30)
 
 # Define function
+def submit_number(number):
+    """Add a number or decimal to the display"""
+    # Insert the decimal pressed to the display
+    display.insert(END, number)
 
-
+    # If decimal was pressed, disable the decimal button so it cannot be pressed twice
+    if "." in display.get():
+        decimal_button.config(state=DISABLED)
 
 # GUI layout
 # Define frames
