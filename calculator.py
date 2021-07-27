@@ -85,10 +85,39 @@ def enable_buttons():
     inverse_button.config(state=NORMAL)
     square_button.config(state=NORMAL)
 
-def clear_screen():
+def clear():
+    """Clear the display"""
     display.delete(0, END)
+
+    # Return buttons to normal state
     enable_buttons()
 
+def inverse():
+    """Calculate the inverse of a given number"""
+    if display.get() == 0:
+        value = "ERROR"
+    else:
+        value = 1/float(display.get())
+
+    # Remove the current value in the display and update it with the answer
+    display.delete(0, END)
+    display.insert(0, value)
+
+def square():
+    """Calculate the square of a given number"""
+    value = float(display.get()) ** 2
+
+    # Remove the current value in the display and update it with the answer
+    display.delete(0, END)
+    display.insert(0, value)
+
+def negate():
+    """Negate a given number"""
+    value = -1 * float(display.get())
+
+    # Remove the current value in the display and update it with the answer
+    display.delete(0, END)
+    display.insert(0, value)
 
 # GUI layout
 # Define frames
@@ -102,11 +131,11 @@ display = tk.Entry(display_frame, width=50, font=display_font, bg=white_green, b
 display.pack(padx=5, pady=5)
 
 # Layout for the button frame
-clear_button = tk.Button(button_frame, text="Clear", font=button_font, bg=dark_green, command=clear_screen)
+clear_button = tk.Button(button_frame, text="Clear", font=button_font, bg=dark_green, command=clear)
 quit_button = tk.Button(button_frame, text="Quit", font=button_font, bg=dark_green, command=root.destroy)
 
-inverse_button = tk.Button(button_frame, text="1/x", font=button_font, bg=light_green)
-square_button = tk.Button(button_frame, text="x^2", font=button_font, bg=light_green)
+inverse_button = tk.Button(button_frame, text="1/x", font=button_font, bg=light_green, command=inverse)
+square_button = tk.Button(button_frame, text="x^2", font=button_font, bg=light_green, command=square)
 exponent_button = tk.Button(button_frame, text="x^n", font=button_font, bg=light_green, command=lambda:operate("exponent"))
 divide_button = tk.Button(button_frame, text=" / ", font=button_font, bg=light_green, command=lambda:operate("divide"))
 multiply_button = tk.Button(button_frame, text="*", font=button_font, bg=light_green, command=lambda:operate("multiply"))
@@ -114,7 +143,7 @@ subtract_button = tk.Button(button_frame, text="-", font=button_font, bg=light_g
 add_button = tk.Button(button_frame, text="+", font=button_font, bg=light_green, command=lambda:operate("add"))
 equal_button = tk.Button(button_frame, text="=", font=button_font, bg=dark_green, command=equal)
 decimal_button = tk.Button(button_frame, text=".", font=button_font, bg="black", fg="white", command=lambda:submit_number("."))
-negate_button = tk.Button(button_frame, text="+/-", font=button_font, bg="black", fg="white")
+negate_button = tk.Button(button_frame, text="+/-", font=button_font, bg="black", fg="white", command=negate)
 
 nine_button = tk.Button(button_frame, text="9", font=button_font, bg="black", fg="white", command=lambda:submit_number(9))
 eight_button = tk.Button(button_frame, text="8", font=button_font, bg="black", fg="white", command=lambda:submit_number(8))
