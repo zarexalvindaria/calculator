@@ -18,12 +18,14 @@ display_font = ("Arial", 30)
 
 # Define function
 
+
+
 # GUI layout
 # Define frames
 display_frame = tk.LabelFrame(root)
 button_frame = tk.LabelFrame(root)
-display_frame.pack()
-button_frame.pack()
+display_frame.pack(padx=2, pady=(5,20))
+button_frame.pack(padx=2, pady=5)
 
 # Layout for the display frame
 display = tk.Entry(display_frame, width=50, font=display_font, bg=white_green, borderwidth=5, justify=RIGHT)
@@ -31,7 +33,7 @@ display.pack(padx=5, pady=5)
 
 # Layout for the button frame
 clear_button = tk.Button(button_frame, text="Clear", font=button_font, bg=dark_green)
-quit_button = tk.Button(button_frame, text="Quit", font=button_font, bg=dark_green)
+quit_button = tk.Button(button_frame, text="Quit", font=button_font, bg=dark_green, command=root.destroy)
 
 inverse_button = tk.Button(button_frame, text="1/x", font=button_font, bg=light_green)
 square_button = tk.Button(button_frame, text="x^2", font=button_font, bg=light_green)
@@ -55,7 +57,8 @@ two_button = tk.Button(button_frame, text="2", font=button_font, bg="black", fg=
 one_button = tk.Button(button_frame, text="1", font=button_font, bg="black", fg="white")
 zero_button = tk.Button(button_frame, text="0", font=button_font, bg="black", fg="white")
 
-# first row
+
+# First row
 clear_button.grid(row=0, column=0, columnspan=2, pady=1, sticky="WE")
 quit_button.grid(row=0, column=2,  columnspan=2, pady=1, sticky="WE")
 # Second row
@@ -69,20 +72,20 @@ eight_button.grid(row=2, column=1, pady=1, sticky="WE", ipadx=20)
 nine_button.grid(row=2, column=2, pady=1, sticky="WE", ipadx=20)
 multiply_button.grid(row=2, column=3, pady=1, sticky="WE", ipadx=20)
 # Fourth row
-four_button.grid(row=3, column=0, pady=1, sticky="WE", ipadx=20)
-five_button.grid(row=3, column=1, pady=1, sticky="WE", ipadx=20)
-six_button.grid(row=3, column=2, pady=1, sticky="WE", ipadx=20)
-subtract_button.grid(row=3, column=3, pady=1, sticky="WE", ipadx=20)
+four_button.grid(row=3, column=0, pady=1, sticky="WE")
+five_button.grid(row=3, column=1, pady=1, sticky="WE")
+six_button.grid(row=3, column=2, pady=1, sticky="WE")
+subtract_button.grid(row=3, column=3, pady=1, sticky="WE")
 # Fifth row
-one_button.grid(row=4, column=0, pady=1, sticky="WE", ipadx=20)
-two_button.grid(row=4, column=1, pady=1, sticky="WE", ipadx=20)
-three_button.grid(row=4, column=2, pady=1, sticky="WE", ipadx=20)
-add_button.grid(row=4, column=3, pady=1, sticky="WE", ipadx=20)
+one_button.grid(row=4, column=0, pady=1, sticky="WE")
+two_button.grid(row=4, column=1, pady=1, sticky="WE")
+three_button.grid(row=4, column=2, pady=1, sticky="WE")
+add_button.grid(row=4, column=3, pady=1, sticky="WE")
 # Sixth row
-negate_button.grid(row=5, column=0, pady=1, sticky="WE", ipadx=20)
-zero_button.grid(row=5, column=1, pady=1, sticky="WE", ipadx=20)
-decimal_button.grid(row=5, column=2, pady=1, sticky="WE", ipadx=20)
-equal_button.grid(row=5, column=3, pady=1, sticky="WE", ipadx=20)
+negate_button.grid(row=5, column=0, pady=1, sticky="WE")
+zero_button.grid(row=5, column=1, pady=1, sticky="WE")
+decimal_button.grid(row=5, column=2, pady=1, sticky="WE")
+equal_button.grid(row=5, column=3, pady=1, sticky="WE")
 
 # Run the window's main loop
 root.mainloop()
