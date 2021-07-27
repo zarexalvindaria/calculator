@@ -1,6 +1,6 @@
 """Calculator application"""
 import tkinter as tk
-from tkinter import RIGHT, END, DISABLED
+from tkinter import RIGHT, END, DISABLED, NORMAL
 
 
 root = tk.Tk()
@@ -26,6 +26,70 @@ def submit_number(number):
     if "." in display.get():
         decimal_button.config(state=DISABLED)
 
+def operate(operator):
+    """Store the first number of the expression and the operation to be used"""
+    global first_number
+    global operation
+
+    # Get the operator pressed and the current value of the display. This is the first number in the calculation
+    operation = operator
+    first_number = display.get()
+
+    # Delete the value (first_number) from entry display
+    display.delete(0, END)
+
+    # Disable all operator buttons until equal or clear is pressed
+    add_button.config(state=DISABLED)
+    subtract_button.config(state=DISABLED)
+    multiply_button.config(state=DISABLED)
+    divide_button.config(state=DISABLED)
+    exponent_button.config(state=DISABLED)
+    inverse_button.config(state=DISABLED)
+    square_button.config(state=DISABLED)
+
+    # Return decimal button to normal state
+    decimal_button.config(state=NORMAL)
+
+def equal():
+    """Run the store operation for the two numbers"""
+    # Perform the desired mathematics
+    if operation == "add":
+        value = float(first_number) + float(display.get())
+    elif operation == "subtract":
+        value = float(first_number) - float(display.get())
+    elif operation == "multiply":
+        value = float(first_number) * float(display.get())
+    elif operation == "divide":
+        if display.get() == "0":
+            value = "ERROR"
+        else:
+            value = float(first_number) / float(display.get())
+    elif operation == "exponent":
+        value = float(first_number) ** float(display.get())
+
+    # Remove the current value of the display and update it with the answer
+    display.delete(0, END)
+    display.insert(0,value)
+
+    # Return buttons to normal states
+    enable_buttons()
+
+def enable_buttons():
+    """Enable the buttons on the calculator"""
+    decimal_button.config(state=NORMAL)
+    add_button.config(state=NORMAL)
+    subtract_button.config(state=NORMAL)
+    multiply_button.config(state=NORMAL)
+    divide_button.config(state=NORMAL)
+    exponent_button.config(state=NORMAL)
+    inverse_button.config(state=NORMAL)
+    square_button.config(state=NORMAL)
+
+def clear_screen():
+    display.delete(0, END)
+    enable_buttons()
+
+
 # GUI layout
 # Define frames
 display_frame = tk.LabelFrame(root)
@@ -38,17 +102,17 @@ display = tk.Entry(display_frame, width=50, font=display_font, bg=white_green, b
 display.pack(padx=5, pady=5)
 
 # Layout for the button frame
-clear_button = tk.Button(button_frame, text="Clear", font=button_font, bg=dark_green)
+clear_button = tk.Button(button_frame, text="Clear", font=button_font, bg=dark_green, command=clear_screen)
 quit_button = tk.Button(button_frame, text="Quit", font=button_font, bg=dark_green, command=root.destroy)
 
 inverse_button = tk.Button(button_frame, text="1/x", font=button_font, bg=light_green)
 square_button = tk.Button(button_frame, text="x^2", font=button_font, bg=light_green)
-exponent_button = tk.Button(button_frame, text="x^n", font=button_font, bg=light_green)
-divide_button = tk.Button(button_frame, text=" / ", font=button_font, bg=light_green)
-multiply_button = tk.Button(button_frame, text="*", font=button_font, bg=light_green)
-subtract_button = tk.Button(button_frame, text="-", font=button_font, bg=light_green)
-add_button = tk.Button(button_frame, text="+", font=button_font, bg=light_green)
-equal_button = tk.Button(button_frame, text="=", font=button_font, bg=dark_green)
+exponent_button = tk.Button(button_frame, text="x^n", font=button_font, bg=light_green, command=lambda:operate("exponent"))
+divide_button = tk.Button(button_frame, text=" / ", font=button_font, bg=light_green, command=lambda:operate("divide"))
+multiply_button = tk.Button(button_frame, text="*", font=button_font, bg=light_green, command=lambda:operate("multiply"))
+subtract_button = tk.Button(button_frame, text="-", font=button_font, bg=light_green, command=lambda:operate("subtract"))
+add_button = tk.Button(button_frame, text="+", font=button_font, bg=light_green, command=lambda:operate("add"))
+equal_button = tk.Button(button_frame, text="=", font=button_font, bg=dark_green, command=equal)
 decimal_button = tk.Button(button_frame, text=".", font=button_font, bg="black", fg="white", command=lambda:submit_number("."))
 negate_button = tk.Button(button_frame, text="+/-", font=button_font, bg="black", fg="white")
 
